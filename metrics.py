@@ -13,12 +13,11 @@ def sentiment(content):
     for sentence in sentences:
         for word in sentence.words:
             if word.type in relevant_types:
-                try:
-                    synset = wordnet.synsets(word.string, word.type)[0].weight
-                    pos, neg, obj = synset
-                except KeyError:
-                    #incorrect part of speech tag
-                    continue
+                    synset = wordnet.synsets(word.string, word.type)
+                    if len(synset) != 0:
+                        pos, neg, obj = synset[0].weight
+                    else:
+                        continue
                 score = score + ((pos - neg) * (1 - obj))
     return score
 
@@ -27,6 +26,7 @@ def normalize(s):
 
 def heuristic_scrape(article):
     from pattern.web import URL, Document, HTTP404NotFound, URLError, plaintext
+
     try:
         s_content = URL(article).download(timeout=120)
     except (URLError, HTTP404NotFound):

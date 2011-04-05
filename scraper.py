@@ -12,7 +12,7 @@ def start(configfile):
     feedlist = json.loads(config.read())
     config.close()
 
-    DELAY = 7200 #two hours
+    DELAY = 3600 #one hour
     DAY = 24
 
     datapath = 'data/'
@@ -34,9 +34,11 @@ def start(configfile):
 
             data = (time.time(), topics)
             datastring = json.dumps(data)
+            
             log.write(datastring + "\n")
             log.flush()
             print datastring
+            
             time.sleep(DELAY)
         log.close()
 
