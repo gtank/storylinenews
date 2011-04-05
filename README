@@ -1,6 +1,9 @@
 DESCRIPTION
 
-Storylinenews is a web mining utility that scrapes major newsfeeds to form a consensus of the most important topics based on the most-discussed terms. It combines this information with sentiment analysis to determine the overall tone of coverage on each topic.
+Storylinenews is a web mining utility that scrapes major newsfeeds to form a
+consensus of the most important topics based on the most-discussed terms. It 
+combines this information with sentiment analysis to determine the overall 
+tone of coverage on each topic.
 
 DEPENDENCIES
 
