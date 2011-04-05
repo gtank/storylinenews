@@ -1,0 +1,29 @@
+DESCRIPTION
+
+Storylinenews is a web mining utility that scrapes major newsfeeds to form a consensus of the most important topics based on the most-discussed terms. It combines this information with sentiment analysis to determine the overall tone of coverage on each topic.
+
+DEPENDENCIES
+
+The project requires version 1.5 of Pattern:
+http://www.clips.ua.ac.be/pages/pattern
+
+and the SentiWordNet polarity lexicon (sign up for a research license):
+http://sentiwordnet.isti.cnr.it/
+
+
+INSTRUCTIONS
+
+First install SentiWordNet. It goes in $(PATTERNDIR)/en/wordnet.
+
+Run scraper.py with the location of a feed list as the first argument.
+
+> python scraper.py feeds.json
+
+
+FEED LIST FORMAT
+
+The feed list is a JSON string dump of a dict of the form
+
+{'FEEDNAME':'feedurl'}
+
+where feedurl points to an RSS or Atom feed.
