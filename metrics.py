@@ -12,12 +12,13 @@ def sentiment(content):
     sentences = split(parse(content))
     for sentence in sentences:
         for word in sentence.words:
-            if word.type in relevant_types:
+            if word.type in relevant_types:              
+                try:
                     synset = wordnet.synsets(word.string, word.type)
-                    if len(synset) != 0:
-                        pos, neg, obj = synset[0].weight
-                    else:
-                        continue
+                except KeyError:
+                    #incorrect part of speech tag
+                    continue
+                pos, neg, obj = synset[0].weight
                 score = score + ((pos - neg) * (1 - obj))
     return score
 
