@@ -16,11 +16,11 @@ def start(configfile):
     DAY = 24
 
     datapath = 'data/'
-    newsdir = 'news/'
+    logdir = 'logs/'
 
     while True:   
         timestr = str(time.time())
-        logpath = os.path.join(datapath, newsdir)
+        logpath = os.path.join(datapath, logdir)
         if not os.path.exists(logpath):
             os.makedirs(logpath)
         logname = os.path.join(logpath,'news-'+timestr+'.json')

@@ -42,8 +42,9 @@ def extract_topics(feeds):
     for key in topdict:
         if topdict[key] > 0: #mentioned more than once
             if(key.endswith('um')):
-                key = key.replace('ium','ia') #Syria, Russia
-                key = key.replace('atum','ata') #Misrata
+                #The stemmer thought these were Latin plurals
+                key = key.replace('ium','ia') #eg Syria, Russia
+                key = key.replace('atum','ata') #eg Misrata
                 topics.append(key)
             else:
                 topics.append(key)

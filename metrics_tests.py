@@ -41,7 +41,7 @@ class SentimentTest(unittest.TestCase):
     def test_positive(self):
         results = self.dir_sentiment(self.posdir)
         pos, neg, total = results
-        #print "positive results: ", pos, neg, total
+        print 'positive results: ', pos, neg, total
         self.assertTrue(pos > neg)
         self.assertTrue(pos / float(total) > self.minimum)
 
@@ -49,9 +49,22 @@ class SentimentTest(unittest.TestCase):
     def test_negative(self):
         results = self.dir_sentiment(self.negdir)
         pos, neg, total = results
-        #print "negative results: ", pos, neg, total
+        print 'negative results: ', pos, neg, total
         self.assertTrue(neg > pos)
-        self.assertTrue(neg / float(total) > self.minimum)            
+        self.assertTrue(neg / float(total) > self.minimum)
+
+    def test_normalize(self):
+        string = '''films adapted from comic books have had plenty of
+                    success , whether they're about superheroes ( batman ,
+                    superman , spawn ) , or geared toward kids ( casper )
+                    or the arthouse crowd ( ghost world ) , but there's
+                    never really been a comic book like from hell before . '''
+        norm =   '''films adapted from comic books have had plenty of
+                    success   whether they're about superheroes   batman  
+                    superman   spawn     or geared toward kids   casper  
+                    or the arthouse crowd   ghost world     but there s
+                    never really been a comic book like from hell before   '''
+        self.assertEquals(norm, metrics.normalize(string))
                 
                 
 if __name__ == '__main__':

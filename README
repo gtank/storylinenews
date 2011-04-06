@@ -1,9 +1,9 @@
 DESCRIPTION
 
-Storylinenews is a web mining utility that scrapes major newsfeeds to form a
-consensus of the most important topics based on the most-discussed terms. It 
-combines this information with sentiment analysis to determine the overall 
-tone of coverage on each topic.
+Storylinenews is a web mining utility that scrapes major newsfeeds to discover
+the day's most important topics and determine the overall sentiment of 
+coverage on those topics. It includes a log converter compatible with the
+excellent 'storylines' visualization technique.
 
 DEPENDENCIES
 
@@ -21,6 +21,16 @@ First install SentiWordNet. It goes in $(PATTERNDIR)/en/wordnet.
 Run scraper.py with the location of a feed list as the first argument.
 
 > python scraper.py feeds.json
+
+Let it run for as long as you'd like or indefinitely. At any time you
+can run converter.py to generate an XML file compatible 
+with Michael Ogawa's Processing implementation of the 'storyline'
+cluster graphing algorithm. The 'news.config' file provided in the
+data directory will allow the generation of sentiment-displaying
+topical storylines.
+
+For more information and the download, visit the storylines website:
+http://www.michaelogawa.com/research/storylines/
 
 
 FEED LIST FORMAT

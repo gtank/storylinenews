@@ -16,7 +16,7 @@ def sentiment(content):
                 try:
                     synset = wordnet.synsets(word.string, word.type)
                 except KeyError:
-                    #incorrect part of speech tag
+                    #incorrect part of speech tag or not in wordnet, skip it
                     continue
                 pos, neg, obj = synset[0].weight
                 score = score + ((pos - neg) * (1 - obj))
@@ -29,12 +29,12 @@ def heuristic_scrape(article):
     from pattern.web import URL, Document, HTTP404NotFound, URLError, plaintext
 
     try:
-        s_content = URL(article).download(timeout=120)
+        content = URL(article).download(timeout=120)
     except (URLError, HTTP404NotFound):
         print "Error downloading", article
         return None
-
-    dom = Document(s_content)
+    
+    dom = Document(content)
     
     text = ''
 
