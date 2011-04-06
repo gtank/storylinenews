@@ -54,16 +54,8 @@ class SentimentTest(unittest.TestCase):
         self.assertTrue(neg / float(total) > self.minimum)
 
     def test_normalize(self):
-        string = '''films adapted from comic books have had plenty of
-                    success , whether they're about superheroes ( batman ,
-                    superman , spawn ) , or geared toward kids ( casper )
-                    or the arthouse crowd ( ghost world ) , but there's
-                    never really been a comic book like from hell before . '''
-        norm =   '''films adapted from comic books have had plenty of
-                    success   whether they're about superheroes   batman  
-                    superman   spawn     or geared toward kids   casper  
-                    or the arthouse crowd   ghost world     but there s
-                    never really been a comic book like from hell before   '''
+        string = 'about superheroes ( batman , superman , spawn ) , or geared toward kids ( casper ) before .'
+        norm = 'about superheroes   batman   superman   spawn     or geared toward kids   casper   before  '
         self.assertEquals(norm, metrics.normalize(string))
                 
                 
