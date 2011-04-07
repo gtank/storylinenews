@@ -4,6 +4,8 @@ import sys
 import pkg_resources
 import os
 
+from pattern.web import cache
+
 import feed
 import metrics
 
@@ -28,6 +30,8 @@ def start(configfile):
 
         print timestr + ' starting a new day'
         for i in range(DAY):
+            cache.clear()
+            
             topics = feed.extract_topics(feedlist)
             topics = filter(metrics.isnews, topics)
             topics = map(lambda x: (x, metrics.gnews_polarity(x)), topics)

@@ -1,2 +1,3 @@
 - Improve sentiment analysis! Excelsior!
 - Re-implement storylines in pure Python
+- Move away from gNews with site-specific searches for sentiment
