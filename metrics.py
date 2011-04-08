@@ -11,19 +11,24 @@ def sentiment(content):
     score = 0
     sentences = split(parse(content))
     for sentence in sentences:
-        for word in sentence.words:
-            if word.type in relevant_types:              
+        for index, word in enumerate(sentence.words):
+            if word.string != '' and word.type in relevant_types:              
                 try:
                     synset = wordnet.synsets(word.string, word.type)
                 except KeyError:
                     #incorrect part of speech tag or not in wordnet, skip it
                     continue
                 pos, neg, obj = synset[0].weight
-                score = score + ((pos - neg) * (1 - obj))
-    return score
+                
+                #weights concluding statements
+                #idea from [Ohana, Tierney '09]
+                documentpos = index / float(len(sentence.words))
 
-def normalize(s):
-    return re.sub('\W',' ', s)
+                #weights more subjective statements
+                subjscore = ((pos - neg) * (1 - obj))
+                
+                score = score + subjscore * documentpos
+    return score
 
 def heuristic_scrape(article):
     from pattern.web import URL, Document, HTTP404NotFound, URLError, plaintext
@@ -74,7 +79,7 @@ def gnews_polarity(topic):
     for result in results:
         content = heuristic_scrape(urllib.unquote(result.url))
         if content:
-            polarity = sentiment(normalize(content))
+            polarity = sentiment(content)
             score = score + polarity
         else:
             results.remove(result)

@@ -15,15 +15,14 @@ class SentimentTest(unittest.TestCase):
         positive, negative = [], []
 
         join = os.path.join
-        normalize = metrics.normalize
         sentiment = metrics.sentiment
 
         directory = join(self.reviewdir, directory)
-        
+
         for dirpath, dirnames, filenames in os.walk(directory):
             for name in filenames:
                 f = open(join(directory, name))
-                review = normalize(f.read())
+                review = f.read()
                 f.close()
 
                 score = sentiment(review)
@@ -52,11 +51,6 @@ class SentimentTest(unittest.TestCase):
         print 'negative results: ', pos, neg, total
         self.assertTrue(neg > pos)
         self.assertTrue(neg / float(total) > self.minimum)
-
-    def test_normalize(self):
-        string = 'about superheroes ( batman , superman , spawn ) , or geared toward kids ( casper ) before .'
-        norm = 'about superheroes   batman   superman   spawn     or geared toward kids   casper   before  '
-        self.assertEquals(norm, metrics.normalize(string))
                 
                 
 if __name__ == '__main__':
