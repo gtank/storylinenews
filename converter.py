@@ -26,24 +26,26 @@ def loadnews(directory):
 ##Extracts only the log entries where something has changed
 def extractevents(logdata):
     events = {}
-    last = []
+    last = (0, [])
+    #I don't even know. Processing-storylines uses 1000-day intervals in demo.
+    dayinterval = 86400000
     for key in sorted(logdata.iterkeys()):
-        data = logdata[key]
+        data = (key, logdata[key])
         if last == [] or data != last:
             last = data
-            events[key] = data
+            events[dayinterval*len(events)] = data
             #print "%s: %s" % (key, data)
     return events
 
 def buildxml(events):
     root = et.Element('file_events')
     for time in sorted(events.iterkeys()):
-        data = events[time]
+        data = events[time][1]
         time = str(int(time))
         for subject in data:
             topic, score = subject
             event = et.SubElement(root, 'event')
-            event.set('filename', 'positive' if score > 0 else 'negative')
+            event.set('filename', 'negative' if score < 0 else 'positive')
             event.set('date', time)
             event.set('author', topic)
     return root

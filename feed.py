@@ -1,3 +1,5 @@
+import heapq
+import operator
 from pattern.vector import Document, LEMMA
 from pattern.web import Newsfeed
 
@@ -38,15 +40,14 @@ def extract_topics(feeds):
             except KeyError:
                 topdict[topic] = 0
 
+    highest = heapq.nlargest(10, topdict.iteritems(), operator.itemgetter(1))
+
     topics = []
-    for key in topdict:
-        if topdict[key] > 0: #mentioned more than once
-            if(key.endswith('um')):
-                #The stemmer thought these were Latin plurals
-                key = key.replace('ium','ia') #eg Syria, Russia
-                key = key.replace('atum','ata') #eg Misrata
-                topics.append(key)
-            else:
-                topics.append(key)
+    for key in highest:
+        if(key[0].endswith('um')):
+            #The stemmer thought these were Latin plurals
+            key[0] = key[0].replace('ium','ia') #eg Syria, Russia
+            key[0] = key[0].replace('atum','ata') #eg Misrata
+        topics.append(str(key[0]))
 
     return topics

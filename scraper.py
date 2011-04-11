@@ -14,7 +14,7 @@ def start(configfile):
     feedlist = json.loads(config.read())
     config.close()
 
-    DELAY = 3600 #one hour
+    HOUR = 3600 #one hour
     DAY = 24
 
     datapath = 'data/'
@@ -29,7 +29,7 @@ def start(configfile):
         log = open(logname,'w')
 
         print timestr + ' starting a new day'
-        for i in range(DAY):
+        for i in range(2):
             cache.clear()
             
             topics = feed.extract_topics(feedlist)
@@ -43,7 +43,7 @@ def start(configfile):
             log.flush()
             print datastring
             
-            time.sleep(DELAY)
+            time.sleep(12*HOUR)
         log.close()
 
 
