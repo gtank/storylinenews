@@ -44,10 +44,11 @@ def extract_topics(feeds):
 
     topics = []
     for key in highest:
-        if(key[0].endswith('um')):
+        topstr = key[0]
+        if(topstr.endswith('um')):
             #The stemmer thought these were Latin plurals
-            key[0] = key[0].replace('ium','ia') #eg Syria, Russia
-            key[0] = key[0].replace('atum','ata') #eg Misrata
-        topics.append(str(key[0]))
+            topstr = topstr.replace('ium','ia') #eg Syria, Russia
+            topstr = topstr.replace('atum','ata') #eg Misrata
+        topics.append(topstr)
 
     return topics
